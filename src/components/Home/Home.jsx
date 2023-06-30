@@ -15,7 +15,7 @@ const Home = () => {
 
     useEffect(() => {
         getCategories();
-        //getProducts();
+        getProducts();
     },[]);
 
     const getCategories = () => {
@@ -26,9 +26,9 @@ const Home = () => {
     }
 
     const getProducts = () => {
-        fetchDataFromApi("/get/products").then((res)=>{
+        fetchDataFromApi("/products/list").then((res)=>{
             console.log(res);
-            setProducts(res);
+            setProducts(res.data);
         })
     }
 

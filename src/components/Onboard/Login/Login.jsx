@@ -39,11 +39,11 @@ const Login = () => {
         else {
           handleError(true)
           console.log("error", isError)
-          navigate('/home')
+          navigate('/')
         }
       } catch (error) {
         handleError(true)
-        navigate('/home')
+        navigate('/')
         console.error(error); // Handle login error
       }
     } else {
@@ -57,11 +57,11 @@ const Login = () => {
         else {
           handleError(true)
           console.log("error", isError)
-          navigate('/home')
+          navigate('/')
         }
       } catch (error) {
         handleError(true)
-        navigate('/home')
+        navigate('/')
         console.error(error); // Handle login error
       }
     }
