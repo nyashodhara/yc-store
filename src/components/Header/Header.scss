@@ -82,6 +82,20 @@
                 border-radius: 10px;
             }
         }
+        .logout {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 7px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        .logout:hover {
+            background-color: #64be67; /* Green */
+            color: white;
+          }
     }
     &.sticky-header {
         background-color: #212121;
@@ -92,6 +106,7 @@
         animation: StickyHeader 0.3s ease forwards;
     }
 }
+
 
 @keyframes StickyHeader {
     0% {

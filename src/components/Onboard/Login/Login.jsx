@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Login.scss"
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/home");
+    }
+  }, [])
 
   const [isSignIn, setIsSignIn] = useState(true);
 
@@ -29,8 +35,7 @@ const Login = () => {
     e.preventDefault();
     if (isSignIn) {
       try {
-        const response = await axios.post('https://ecom-be-production.up.railway.app/customer/login', { mobile, password });
-        console.log(response.data.data); // Handle successful login
+        const response = await axios.post('http://localhost:8080/customer/login', { mobile, password });
         if (response.data.status === "Success") {
           navigate('/home')
           // Store the token in local storage
@@ -38,7 +43,6 @@ const Login = () => {
         }
         else {
           handleError(true)
-          console.log("error", isError)
           navigate('/')
         }
       } catch (error) {
@@ -48,15 +52,13 @@ const Login = () => {
       }
     } else {
       try {
-        const response = await axios.post('https://ecom-be-production.up.railway.app/customer/register', { name, mobile, email, password });
-        console.log(response.data.data); // Handle successful login
+        const response = await axios.post('http://localhost:8080/customer/register', { name, mobile, email, password });
         if (response.data.status === "Success") {
           navigate('/home')
-          localStorage.setItem('token', "hi");
+          localStorage.setItem('token', JSON.stringify(response.data));
         }
         else {
           handleError(true)
-          console.log("error", isError)
           navigate('/')
         }
       } catch (error) {

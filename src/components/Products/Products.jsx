@@ -2,20 +2,18 @@ import "./Products.scss";
 import Product from "./Product/Product";
 
 const Products = ({ products, innerPage, headingText }) => {
-    console.log("data",products);
-    return (<>{ products !== undefined ? 
+    return ( 
         <div className="products-container">
             {!innerPage && <div className="sec-heading">{headingText}</div>}
             <div className="products">
-                {products.map((item) => (
+                {products?.map((item) => (
                     <Product 
                     key={item.productId} 
-                    id={item.id} 
+                    id={item.productId} 
                     data={item} />
-                ))};
+                ))}
             </div>
-        </div>:''}
-    </>
+        </div>
     );
 };
 

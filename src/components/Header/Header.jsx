@@ -5,7 +5,7 @@ import { CgShoppingCart } from "react-icons/cg";
 import { AiOutlineHeart } from "react-icons/ai";
 import "./Header.scss";
 import Search from "./Search/Search";
-import { Context } from "../../utils/Context";
+import axios from 'axios';
 import Cart from "../Cart/Cart";
 
 
@@ -13,6 +13,9 @@ const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [showCart, setShowCart] = useState(false);
     const [searchModal, setSearchModal] = useState(false);
+    const mobile = JSON.parse(localStorage.getItem("token"))?.data?.mobile;
+    const [data, setData] = useState();
+
     const navigate = useNavigate();
     const handleScroll = () => {
         const offset = window.scrollY;
@@ -22,6 +25,31 @@ const Header = () => {
             setScrolled(false);
         }
     };
+
+    const logout = () =>{
+        localStorage.removeItem("token");
+        navigate("/");
+    };
+
+    const openCart = () =>{
+        setShowCart(true);
+        showCartApi();
+    };
+
+    const showCartApi = async (e) => {
+        try {
+            const response = await axios.post('http://localhost:8080/order/cart', { mobile });
+            if (response.data.status === "Success") {
+                console.log("open cart")
+                setData(response.data);
+            }
+            else {
+                console.log("failed to open cart")
+            }
+        } catch (error) {
+            console.error(error); // Handle error
+        }
+    }
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
@@ -39,22 +67,26 @@ const Header = () => {
                         <li>Categories</li>
                     </ul>
                     <div className="center" onClick={() => navigate("/home")}>
-                        CY-STORE.
+                        SlipKart
                     </div>
                     <div className="right">
                         <TbSearch onClick={() => setSearchModal(true)} />
                         <AiOutlineHeart />
                         <span
                             className="cart-icon"
-                            onClick={() => setShowCart(true)}
+                            onClick={openCart}
                         >
                             <CgShoppingCart />
                             {<span>5</span>}
                         </span>
+                        <button className="logout" onClick={() => logout()}>Logout</button> 
                     </div>
                 </div>
             </header>
-            {showCart && <Cart setShowCart = {setShowCart}/>}
+            {showCart && <Cart 
+            setShowCart = {setShowCart}
+            data = {data}
+            />}
             {searchModal && <Search setSearchModal={setSearchModal} />}
         </>
     );

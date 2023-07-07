@@ -3,7 +3,8 @@ import { MdClose } from "react-icons/md";
 import { BsCartX } from "react-icons/bs";
 import CartItem from "./CartItem/CartItem";
 
-const Cart = ({ setShowCart }) => {
+const Cart = ({ setShowCart, data }) => {
+
     return (
         <div className="cart-panel">
             <div className="opac-layer"></div>
@@ -23,14 +24,14 @@ const Cart = ({ setShowCart }) => {
                     <BsCartX />
                     <span>No Product in the Cart</span>
                     <button className="return-cta">RETURN TO SHOP</button>
-    </div>*/}
+                </div>*/}
 
                 <>
-                <CartItem />
+                <CartItem data={data}/>
                 <div className="cart-footer">
                     <div className="subtotal">
                         <span className="text">Subtotal:</span>
-                        <span className="text total">&#8377;1234</span>
+                        <span className="text total">&#8377;{data?.data?.orderTotal}</span>
                     </div>
                     <div className="button">
                         <button className="checkout-cta">checkout</button>

@@ -9,6 +9,7 @@ import { useEffect, useContext } from "react";
 import { fetchDataFromApi } from "../../utils/api";
 import { Context } from "../../utils/Context";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
     const { products, setProducts, categories, setCategories } = useContext(Context);
@@ -20,14 +21,12 @@ const Home = () => {
 
     const getCategories = () => {
         fetchDataFromApi("/category/list").then((res)=>{
-            console.log(res);
             setCategories(res.data);
         })
     }
 
     const getProducts = () => {
         fetchDataFromApi("/products/list").then((res)=>{
-            console.log(res);
             setProducts(res.data);
         })
     }

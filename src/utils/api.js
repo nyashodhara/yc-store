@@ -8,12 +8,11 @@ const params = {
 
 export const fetchDataFromApi = async (url) => {
     try {
-        const { data } = await axios.get("https://ecom-be-production.up.railway.app"
+        const { data } = await axios.get("http://localhost:8080"
              + url
         );
         return data;
     } catch (err) {
-        console.log(err);
         return err;
     }
 };
